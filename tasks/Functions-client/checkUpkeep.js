@@ -7,7 +7,7 @@ task("functions-check-upkeep", "Checks if checkUpkeep returns true for an Automa
   .setAction(async (taskArgs) => {
     if (network.name === "hardhat") {
       throw Error(
-        'This command cannot be used on a local hardhat chain.  Specify a valid network or simulate an BuffBucks request locally with "npx hardhat functions-simulate".'
+        'This command cannot be used on a local hardhat chain.  Specify a valid network or simulate an BurnToEarn request locally with "npx hardhat functions-simulate".'
       )
     }
 

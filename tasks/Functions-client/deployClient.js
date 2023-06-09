@@ -2,27 +2,27 @@ const { types } = require("hardhat/config")
 const { networks } = require("../../networks")
 const fs = require("fs")
 
-task("functions-deploy-client", "Deploys the BuffBucks contract")
+task("functions-deploy-client", "Deploys the BurnToEarn contract")
   .addOptionalParam("verify", "Set to true to verify client contract", false, types.boolean)
   .setAction(async (taskArgs) => {
     if (network.name === "hardhat") {
       throw Error(
-        'This command cannot be used on a local hardhat chain.  Specify a valid network or simulate an BuffBucks request locally with "npx hardhat functions-simulate".'
+        'This command cannot be used on a local hardhat chain.  Specify a valid network or simulate an BurnToEarn request locally with "npx hardhat functions-simulate".'
       )
     }
 
-    console.log(`Deploying BuffBucks contract to ${network.name}`)
+    console.log(`Deploying BurnToEarn contract to ${network.name}`)
 
     const oracleAddress = networks[network.name]["functionsOracleProxy"]
 
     console.log("\n__Compiling Contracts__")
     await run("compile")
 
-    const clientContractFactory = await ethers.getContractFactory("BuffBucks")
+    const clientContractFactory = await ethers.getContractFactory("BurnToEarn")
     const clientContract = await clientContractFactory.deploy(
       oracleAddress,
-      fs.readFileSync("./Functions-request-email.js").toString(),
-      fs.readFileSync("./Functions-request-source.js").toString()
+      fs.readFileSync("./Functions-request-source.js").toString(),
+      fs.readFileSync("./Functions-request-email.js").toString()
     )
 
     console.log(
@@ -42,8 +42,8 @@ task("functions-deploy-client", "Deploys the BuffBucks contract")
           address: clientContract.address,
           constructorArguments: [
             oracleAddress,
-            fs.readFileSync("./Functions-request-email.js").toString(),
             fs.readFileSync("./Functions-request-source.js").toString(),
+            fs.readFileSync("./Functions-request-email.js").toString(),
           ],
         })
         console.log("Contract verified")
@@ -61,5 +61,5 @@ task("functions-deploy-client", "Deploys the BuffBucks contract")
       )
     }
 
-    console.log(`\BuffBucks contract deployed to ${clientContract.address} on ${network.name}`)
+    console.log(`\BurnToEarn contract deployed to ${clientContract.address} on ${network.name}`)
   })

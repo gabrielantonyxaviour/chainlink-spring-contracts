@@ -10,11 +10,11 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "./IBuffCoupons.sol";
 
 /**
- * @title BuffBucks
+ * @title BurnToEarn
  * @author Gabriel Antony Xaviour
- * @dev A contract for managing BuffBucks tokens.
+ * @dev A contract for managing BurnToEarn tokens.
  */
-contract BuffBucks is ERC20, ERC20Burnable, FunctionsClient, ConfirmedOwner {
+contract BurnToEarn is ERC20, ERC20Burnable, FunctionsClient, ConfirmedOwner {
   using Functions for Functions.Request;
 
   string private functionSourceCode;
@@ -34,7 +34,7 @@ contract BuffBucks is ERC20, ERC20Burnable, FunctionsClient, ConfirmedOwner {
   event CouponsClaimed(address claimer, uint256 tokenId, uint256 tokenPrice, uint256 timestamp);
 
   /**
-   * @dev Initializes the BuffBucks contract.
+   * @dev Initializes the BurnToEarn contract.
    * @param oracle The address of the Functions oracle.
    * @param _functionSourceCode The source code for executing functions.
    * @param _registerAccountSourceCode The source code for registering an account.
@@ -43,7 +43,7 @@ contract BuffBucks is ERC20, ERC20Burnable, FunctionsClient, ConfirmedOwner {
     address oracle,
     string memory _functionSourceCode,
     string memory _registerAccountSourceCode
-  ) FunctionsClient(oracle) ConfirmedOwner(msg.sender) ERC20("BuffBucks", "BB") {
+  ) FunctionsClient(oracle) ConfirmedOwner(msg.sender) ERC20("Buff Bucks", "BB") {
     functionSourceCode = _functionSourceCode;
     registerAccountSourceCode = _registerAccountSourceCode;
   }
@@ -67,7 +67,7 @@ contract BuffBucks is ERC20, ERC20Burnable, FunctionsClient, ConfirmedOwner {
   }
 
   /**
-   * @notice Mints BuffBucks tokens to the caller's account.
+   * @notice Mints BurnToEarn tokens to the caller's account.
    * @param secrets The encrypted secrets payload.
    * @param subscriptionId Functions billing subscription ID.
    * @param gasLimit Maximum amount of gas used to call the client contract's `handleOracleFulfillment` function.
@@ -162,6 +162,14 @@ contract BuffBucks is ERC20, ERC20Burnable, FunctionsClient, ConfirmedOwner {
    */
   function updateOracleAddress(address oracle) public onlyOwner {
     setOracle(oracle);
+  }
+
+  function updateRegisterSourceCode(string memory _registerAccountSourceCode) public onlyOwner {
+    registerAccountSourceCode = _registerAccountSourceCode;
+  }
+
+  function updateFunctionSourceCode(string memory _functionSourceCode) public onlyOwner {
+    functionSourceCode = _functionSourceCode;
   }
 
   /**

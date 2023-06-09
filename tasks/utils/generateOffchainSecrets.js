@@ -27,17 +27,13 @@ const generateOffchainSecrets = async (requestConfig, privateKey, DONPublicKey, 
       ).toString("base64")
     }
   }
-
-  // if secrets is specified in the config, use those as the default secrets under the 0x0 entry
   if (requestConfig.secrets && Object.keys(requestConfig.secrets).length > 0) {
     offchainSecrets["0x0"] = Buffer.from(
       await encryptWithSignature(privateKey, DONPublicKey.slice(2), JSON.stringify(requestConfig.secrets)),
       "hex"
     ).toString("base64")
   }
-  console.log("OFF-CHAIN SECRETS!!!!!!!!!!!!!!!!!")
   console.log(offchainSecrets)
-
   return offchainSecrets
 }
 

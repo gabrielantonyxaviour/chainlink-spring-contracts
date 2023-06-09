@@ -7,7 +7,7 @@ task("functions-sub-transfer", "Request ownership of an Functions subscription b
   .setAction(async (taskArgs) => {
     if (network.name === "hardhat") {
       throw Error(
-        'This command cannot be used on a local hardhat chain.  Please specify a valid network or simulate an BuffBucks request locally with "npx hardhat functions-simulate".'
+        'This command cannot be used on a local hardhat chain.  Please specify a valid network or simulate an BurnToEarn request locally with "npx hardhat functions-simulate".'
       )
     }
 

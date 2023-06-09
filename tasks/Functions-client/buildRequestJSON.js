@@ -33,7 +33,6 @@ task("functions-build-request", "Creates a JSON file with Functions request para
       ? taskArgs.configpath
       : path.join(process.cwd(), taskArgs.configpath))
     const requestConfig = getRequestConfig(unvalidatedRequestConfig)
-
     const request = await generateRequest(requestConfig, taskArgs)
 
     fs.writeFileSync(taskArgs.output ?? "Functions-request.json", JSON.stringify(request))

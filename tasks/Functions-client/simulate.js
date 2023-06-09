@@ -8,7 +8,7 @@ const { networks, SHARED_DON_PUBLIC_KEY } = require("../../networks")
 const path = require("path")
 const process = require("process")
 const fs = require("fs")
-task("functions-simulate", "Simulates an end-to-end fulfillment locally for the BuffBucks contract")
+task("functions-simulate", "Simulates an end-to-end fulfillment locally for the BurnToEarn contract")
   .addOptionalParam(
     "gaslimit",
     "Maximum amount of gas that can be used to call fulfillRequest in the client contract (defaults to 100,000)"
@@ -41,7 +41,7 @@ task("functions-simulate", "Simulates an end-to-end fulfillment locally for the 
     const authenticationCode = fs.readFileSync("./Functions-request-email.js", "utf-8")
     const sourceCode = fs.readFileSync("./Functions-request-source.js", "utf-8")
     // Deploy the client contract
-    const clientFactory = await ethers.getContractFactory("BuffBucks")
+    const clientFactory = await ethers.getContractFactory("BurnToEarn")
     const client = await clientFactory.deploy(oracle.address, sourceCode, authenticationCode)
     await client.deployTransaction.wait(1)
 
@@ -194,7 +194,7 @@ const getGasUsedForFulfillRequest = async (success, result) => {
   const deployer = accounts[0]
   const simulatedRequestId = "0x0000000000000000000000000000000000000000000000000000000000000001"
 
-  const clientFactory = await ethers.getContractFactory("BuffBucks")
+  const clientFactory = await ethers.getContractFactory("BurnToEarn")
   const authenticationCode = fs.readFileSync("./Functions-request-email.js", "utf-8")
   const sourceCode = fs.readFileSync("./Functions-request-source.js", "utf-8")
   const client = await clientFactory.deploy(deployer.address, sourceCode, authenticationCode)

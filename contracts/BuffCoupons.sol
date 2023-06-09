@@ -20,15 +20,15 @@ contract BuffCoupons is ERC1155, ERC1155URIStorage, Ownable {
   Counters.Counter private _tokenIdCounter;
 
   mapping(uint256 => uint256) public tokenPrice;
-  address public immutable buffbucksContract;
+  address public immutable burntoearnContract;
 
   event TokenCreated(uint256 tokenId, string uri, uint256 timestamp);
   event TokenMinted(uint256 tokenId, address to, uint256 price, uint256 timestamp);
   event TokenPriceUpdated(uint256 tokenId, uint256 price, uint256 timestamp);
   event TokenURIUpdated(uint256 tokenId, string uri, uint256 timestamp);
 
-  constructor(address _buffbucksContract) ERC1155("") {
-    buffbucksContract = _buffbucksContract;
+  constructor(address _burntoearnContract) ERC1155("") {
+    burntoearnContract = _burntoearnContract;
   }
 
   /**
@@ -80,7 +80,7 @@ contract BuffCoupons is ERC1155, ERC1155URIStorage, Ownable {
     uint256 id,
     bytes memory data
   ) public {
-    require(msg.sender == buffbucksContract, "Direct mint invalid");
+    require(msg.sender == burntoearnContract, "Direct mint invalid");
     _mint(account, id, 1, data);
     emit TokenMinted(id, account, tokenPrice[id], block.timestamp);
   }

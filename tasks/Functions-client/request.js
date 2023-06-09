@@ -52,7 +52,7 @@ task("functions-request", "Initiates a request from a Functions client contract"
     }
 
     // Attach to the required contracts
-    const clientContractFactory = await ethers.getContractFactory("BuffBucks")
+    const clientContractFactory = await ethers.getContractFactory("BurnToEarn")
     const clientContract = clientContractFactory.attach(contractAddr)
     const OracleFactory = await ethers.getContractFactory("contracts/dev/functions/FunctionsOracle.sol:FunctionsOracle")
     const oracle = await OracleFactory.attach(networks[network.name]["functionsOracleProxy"])
@@ -84,7 +84,7 @@ task("functions-request", "Initiates a request from a Functions client contract"
     const requestConfig = getRequestConfig(unvalidatedRequestConfig)
 
     const simulatedSecretsURLBytes = `0x${Buffer.from(
-      "https://bafkreiclp2df4tumxxh6jjegewdxpmqsysrbkzmqrak5rkiuldyewu5cfe.ipfs.nftstorage.link/"
+      "https://gist.github.com/gabrielantonyxaviour/f8a487b73b350c4811d19d782fb10c13/raw"
     ).toString("hex")}`
     console.log("BYTESP: ", simulatedSecretsURLBytes)
     // Estimate the cost of the request
@@ -141,7 +141,7 @@ task("functions-request", "Initiates a request from a Functions client contract"
     const store = new RequestStore(hre.network.config.chainId, network.name, "consumer")
 
     const spinner = utils.spin({
-      text: `Submitting transaction for BuffBucks contract ${contractAddr} on network ${network.name}`,
+      text: `Submitting transaction for BurnToEarn contract ${contractAddr} on network ${network.name}`,
     })
 
     // Use a promise to wait & listen for the fulfillment event before returning
@@ -196,14 +196,12 @@ task("functions-request", "Initiates a request from a Functions client contract"
         }
 
         spinner.succeed(`Request ${requestId} fulfilled! Data has been written on-chain.\n`)
-        if (result !== "0x") {
+        if (emailAddress !== "0x") {
           console.log(`Response returned to client contract represented as a string: ${emailAddress}`)
         }
-        if (err !== "0x") {
-          console.log(`Error message returned to client contract: "${Buffer.from(err.slice(2), "hex")}"\n`)
-        }
+
         ocrResponseEventReceived = true
-        await store.update(requestId, { status: "complete", result })
+        await store.update(requestId, { status: "complete", result: emailAddress })
 
         if (billingEndEventReceived) {
           await cleanup()

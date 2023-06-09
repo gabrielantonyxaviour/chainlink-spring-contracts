@@ -69,7 +69,7 @@ module.exports = {
   },
   contractSizer: {
     runOnCompile: false,
-    only: ["BuffBucks", "AutomatedFunctionsConsumer", "FunctionsBillingRegistry"],
+    only: ["BurnToEarn", "AutomatedFunctionsConsumer", "FunctionsBillingRegistry"],
   },
   paths: {
     sources: "./contracts",

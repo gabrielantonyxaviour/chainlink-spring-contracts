@@ -2,7 +2,7 @@ const { networks } = require("../../networks")
 
 task(
   "functions-set-oracle-addr",
-  "Updates the oracle address for a BuffBucks client contract using the FunctionsOracle address from `network-config.js`"
+  "Updates the oracle address for a BurnToEarn client contract using the FunctionsOracle address from `network-config.js`"
 )
   .addParam("contract", "Address of the client contract to update")
   .setAction(async (taskArgs) => {
@@ -15,7 +15,7 @@ task(
         taskArgs.contract
       } on ${network.name}`
     )
-    const clientContractFactory = await ethers.getContractFactory("BuffBucks")
+    const clientContractFactory = await ethers.getContractFactory("BurnToEarn")
     const clientContract = await clientContractFactory.attach(taskArgs.contract)
 
     const updateTx = await clientContract.updateOracleAddress(networks[network.name]["functionsOracleProxy"])

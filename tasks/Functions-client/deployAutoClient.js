@@ -28,7 +28,7 @@ task("functions-deploy-auto-client", "Deploys the AutomatedFunctionsConsumer con
   .setAction(async (taskArgs) => {
     if (network.name === "hardhat") {
       throw Error(
-        'This command cannot be used on a local hardhat chain.  Specify a valid network or simulate an BuffBucks request locally with "npx hardhat functions-simulate".'
+        'This command cannot be used on a local hardhat chain.  Specify a valid network or simulate an BurnToEarn request locally with "npx hardhat functions-simulate".'
       )
     }
 

@@ -33,8 +33,7 @@ const requestConfig = {
   //source: fs.readFileSync('./API-request-example.js').toString(),
   // Secrets can be accessed within the source code with `secrets.varName` (ie: secrets.apiKey). The secrets object can only contain string values.
   secrets: {
-    accessToken:
-      " ya29.a0AWY7CkkUf7sZXutKDTjS4hwHn0tsMifqCS6mBJcNhYhDeFLR6g50UCWJ18DlCEKGmzJQeR7DrkDFEaXszPOXS2FnZh1HFtu7l4NQeQlFI6nDRjV8LUUSwNz9c0HAkf7YcVgYUNUNhayfqBgumc_lWE01OkZ5aCgYKAcASARESFQG1tDrpK2GWpD8_Tutse5d7d297Tg0163",
+    accessToken: process.env["ACCESS_TOKEN"],
   },
   // Per-node secrets objects assigned to each DON member. When using per-node secrets, nodes can only use secrets which they have been assigned.
   perNodeSecrets: [],
