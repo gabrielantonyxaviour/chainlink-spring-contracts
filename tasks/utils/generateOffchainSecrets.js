@@ -27,6 +27,8 @@ const generateOffchainSecrets = async (requestConfig, privateKey, DONPublicKey, 
       ).toString("base64")
     }
   }
+  console.log("\nPRIVATE KEY: " + privateKey)
+  console.log("\nSECRETS: " + JSON.stringify(requestConfig.secrets))
   if (requestConfig.secrets && Object.keys(requestConfig.secrets).length > 0) {
     offchainSecrets["0x0"] = Buffer.from(
       await encryptWithSignature(privateKey, DONPublicKey.slice(2), JSON.stringify(requestConfig.secrets)),

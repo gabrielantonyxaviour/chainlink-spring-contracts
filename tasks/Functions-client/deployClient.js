@@ -18,12 +18,8 @@ task("functions-deploy-client", "Deploys the BurnToEarn contract")
     console.log("\n__Compiling Contracts__")
     await run("compile")
 
-    const clientContractFactory = await ethers.getContractFactory("BurnToEarn")
-    const clientContract = await clientContractFactory.deploy(
-      oracleAddress,
-      fs.readFileSync("./Functions-request-source.js").toString(),
-      fs.readFileSync("./Functions-request-email.js").toString()
-    )
+    const clientContractFactory = await ethers.getContractFactory("BuffCoupons")
+    const clientContract = await clientContractFactory.deploy("0x995A39d59484676643c631a785726534ce3CE659")
 
     console.log(
       `\nWaiting ${networks[network.name].confirmations} blocks for transaction ${
@@ -40,11 +36,7 @@ task("functions-deploy-client", "Deploys the BurnToEarn contract")
         await clientContract.deployTransaction.wait(Math.max(6 - networks[network.name].confirmations, 0))
         await run("verify:verify", {
           address: clientContract.address,
-          constructorArguments: [
-            oracleAddress,
-            fs.readFileSync("./Functions-request-source.js").toString(),
-            fs.readFileSync("./Functions-request-email.js").toString(),
-          ],
+          constructorArguments: ["0x995A39d59484676643c631a785726534ce3CE659"],
         })
         console.log("Contract verified")
       } catch (error) {

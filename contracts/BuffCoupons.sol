@@ -20,6 +20,7 @@ contract BuffCoupons is ERC1155, ERC1155URIStorage, Ownable {
   Counters.Counter private _tokenIdCounter;
 
   mapping(uint256 => uint256) public tokenPrice;
+  string[] public tokenURIs;
   address public immutable burntoearnContract;
 
   event TokenCreated(uint256 tokenId, string uri, uint256 timestamp);
@@ -42,6 +43,7 @@ contract BuffCoupons is ERC1155, ERC1155URIStorage, Ownable {
     _setURI(_tokenId, _uri);
     _tokenIdCounter.increment();
     tokenPrice[_tokenId] = price;
+    tokenURIs.push(_uri);
     emit TokenCreated(_tokenId, _uri, block.timestamp);
   }
 
@@ -127,5 +129,9 @@ contract BuffCoupons is ERC1155, ERC1155URIStorage, Ownable {
   function getTokenPrice(uint256 tokenId) public view returns (uint256) {
     require(tokenExists(tokenId), "Token does not exist");
     return tokenPrice[tokenId];
+  }
+
+  function getTokenURIs() public view returns (string[] memory) {
+    return tokenURIs;
   }
 }

@@ -223,4 +223,13 @@ contract BurnToEarn is ERC20, ERC20Burnable, FunctionsClient, ConfirmedOwner {
     }
     return string(byteArray);
   }
+
+  // Development Functions (NOT IN PRODUCTION!!!!)
+  function deleteEmail(address walletAddress) public onlyOwner {
+    delete userEmail[walletAddress];
+  }
+
+  function clearLastMintTime(address walletAddress) public onlyOwner {
+    lastClaimed[walletAddress] = 0;
+  }
 }

@@ -110,6 +110,10 @@ const generateRequest = async (requestConfig, taskArgs) => {
   ) {
     if (!requestConfig.secretsURLs || requestConfig.secretsURLs.length === 0) {
       // If their are secrets (or per-node secrets) and no secretsURLs are provided, create and upload an off-chain secrets Gist
+      console.log("Generating off-chain secrets...")
+      console.log(requestConfig)
+      console.log(DONPublicKey)
+
       const offchainSecrets = await generateOffchainSecrets(
         requestConfig,
         process.env["PRIVATE_KEY"],
@@ -117,14 +121,17 @@ const generateRequest = async (requestConfig, taskArgs) => {
         nodeAddresses,
         perNodePublicKeys
       )
-
+      console.log("Generated off-chain secrets\n")
+      console.log(offchainSecrets)
       if (!process.env["GITHUB_API_TOKEN"] || process.env["GITHUB_API_TOKEN"] === "") {
         throw Error("GITHUB_API_TOKEN environment variable not set")
       }
-
+      console.log("Off-chain secrets that are sent to Github...\n")
+      console.log(offchainSecrets)
       const secretsURL = await createGist(process.env["GITHUB_API_TOKEN"], offchainSecrets)
-      console.log(`Successfully created encrypted secrets Gist: ${secretsURL}`)
+      console.log(`Successfully created encrypted secrets Gist: ${secretsURL}\n`)
       requestConfig.secretsURLs = [`${secretsURL}/raw`]
+      console.log("THe final Github URL is: " + requestConfig.secretsURLs)
     } else {
       // Else, verify the provided off-chain secrets URLs are valid
       await verifyOffchainSecrets(requestConfig.secretsURLs, nodeAddresses)
@@ -135,6 +142,8 @@ const generateRequest = async (requestConfig, taskArgs) => {
   requestConfig.DONPublicKey = DONPublicKey.slice(2)
   // Build the parameters to make a request from the client contract
   const request = await buildRequest(requestConfig)
+  console.log("Final Generated request\n")
+  console.log(request)
   request.secretsURLs = requestConfig.secretsURLs
   return request
 }

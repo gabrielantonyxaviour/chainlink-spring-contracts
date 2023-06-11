@@ -84,9 +84,9 @@ task("functions-request", "Initiates a request from a Functions client contract"
     const requestConfig = getRequestConfig(unvalidatedRequestConfig)
 
     const simulatedSecretsURLBytes = `0x${Buffer.from(
-      "https://gist.github.com/gabrielantonyxaviour/f8a487b73b350c4811d19d782fb10c13/raw"
+      "https://gist.github.com/gabrielantonyxaviour/d92c763ce26d027136bf508432e9aec5/raw"
     ).toString("hex")}`
-    console.log("BYTESP: ", simulatedSecretsURLBytes)
+    console.log("BYTES: ", simulatedSecretsURLBytes)
     // Estimate the cost of the request
     const { lastBaseFeePerGas, maxPriorityFeePerGas } = await hre.ethers.provider.getFeeData()
     const estimatedCostJuels = await clientContract.estimateCost(
@@ -256,6 +256,7 @@ task("functions-request", "Initiates a request from a Functions client contract"
       )
 
       let requestTx
+
       try {
         // Initiate the on-chain request after all listeners are initialized
         requestTx = await clientContract.registerAccount(
