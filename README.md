@@ -9,7 +9,7 @@
 3. [BuffCouponsContractDeployment](https://mumbai.polygonscan.com/address/0xceB4984e186244885822202b22AC155E3043F925)
 4. [Backend](https://github.com/gabrielantonyxaviour/chainlink-spring-contracts)
 5. [Dashboard](https://devpost.com/software/burn2earn)
-6. [LiveDemo](https://www.youtube.com/)
+6. [LiveDemo](https://www.youtube.com/watch?v=C3spFq-IUAs)
 
 ## Inspiration
 
